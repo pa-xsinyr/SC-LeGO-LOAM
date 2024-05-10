@@ -65,8 +65,8 @@ public:
 
     TransformFusion(){
 
-        pubLaserOdometry2 = nh.advertise<nav_msgs::Odometry> ("/integrated_to_init", 5);
-        subLaserOdometry = nh.subscribe<nav_msgs::Odometry>("/laser_odom_to_init", 5, &TransformFusion::laserOdometryHandler, this);
+        pubLaserOdometry2 = nh.advertise<nav_msgs::Odometry> ("/integrated_to_init", 5);//创建了一个名为/integrated_to_init的ROS发布者，用于发布nav_msgs::Odometry类型的消息。
+        subLaserOdometry = nh.subscribe<nav_msgs::Odometry>("/laser_odom_to_init", 5, &TransformFusion::laserOdometryHandler, this);//创建了一个名为/laser_odom_to_init的ROS订阅者，用于接收nav_msgs::Odometry类型的消息，并将接收到的消息传递给laserOdometryHandler函数处理
         subOdomAftMapped = nh.subscribe<nav_msgs::Odometry>("/aft_mapped_to_init", 5, &TransformFusion::odomAftMappedHandler, this);
 
         laserOdometry2.header.frame_id = "/camera_init";
@@ -81,7 +81,7 @@ public:
         camera_2_base_link_Trans.frame_id_ = "/camera";
         camera_2_base_link_Trans.child_frame_id_ = "/base_link";
 
-        for (int i = 0; i < 6; ++i)
+        for (int i = 0; i < 6; ++i)//这个循环初始化了一些变换矩阵相关的数组。
         {
             transformSum[i] = 0;
             transformIncre[i] = 0;

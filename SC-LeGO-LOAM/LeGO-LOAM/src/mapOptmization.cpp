@@ -43,7 +43,7 @@
 
 #include <gtsam/nonlinear/ISAM2.h>
 
-#include "Scancontext.h"
+#include "Scancontext.h"//添加
 #include "utility.h"
 
 using namespace gtsam;
@@ -61,7 +61,7 @@ private:
     noiseModel::Diagonal::shared_ptr priorNoise;
     noiseModel::Diagonal::shared_ptr odometryNoise;
     noiseModel::Diagonal::shared_ptr constraintNoise;
-    noiseModel::Base::shared_ptr robustNoiseModel;
+    noiseModel::Base::shared_ptr robustNoiseModel;//添加。声明了一个名为 robustNoiseModel 的指针，指向 noiseModel::Base 类型的共享指针。共享指针是智能指针的一种，它能够自动管理对象的内存生命周期，确保在不再需要时正确地释放内存.noiseModel::Base 类型是一个类或者结构体的名称，它表示了一个噪声模型的基类或抽象类。根据命名约定，它可能是一个用于定义噪声模型的基本属性和方法的类
 
     ros::NodeHandle nh;
 
@@ -74,7 +74,7 @@ private:
     ros::Publisher pubRecentKeyFrames;
     ros::Publisher pubRegisteredCloud;
 
-    ros::Subscriber subLaserCloudRaw;
+    ros::Subscriber subLaserCloudRaw;//添加。ros::Subscriber 是 ROS（Robot Operating System）中用于订阅消息的类。订阅器（Subscriber）用于接收特定主题的消息，并在接收到消息时调用用户定义的回调函数来处理消息数据。在这里，subLaserCloudRaw 是一个 ros::Subscriber 类型的变量，用于订阅激光云原始数据的消息。通常，在 ROS 中，激光数据以点云的形式传输，而 subLaserCloudRaw 可以用于订阅这些激光点云数据的原始版本。
     ros::Subscriber subLaserCloudCornerLast;
     ros::Subscriber subLaserCloudSurfLast;
     ros::Subscriber subOutlierCloudLast;
@@ -109,8 +109,8 @@ private:
     pcl::PointCloud<PointType>::Ptr surroundingKeyPoses;
     pcl::PointCloud<PointType>::Ptr surroundingKeyPosesDS;
 
-    pcl::PointCloud<PointType>::Ptr laserCloudRaw; 
-    pcl::PointCloud<PointType>::Ptr laserCloudRawDS; 
+    pcl::PointCloud<PointType>::Ptr laserCloudRaw; //pcl::PointCloud<PointType>::Ptr 是 PCL（Point Cloud Library）中用于表示点云的指针类型。这里的 PointType 应该是表示点云中单个点的数据类型，通常是一个结构体或类，其中包含了点的坐标和可能的其他属性（如法向量、颜色等）。
+    pcl::PointCloud<PointType>::Ptr laserCloudRawDS; //laserCloudRaw 和 laserCloudRawDS 是指向点云对象的智能指针，它们分别指向原始的激光点云数据和经过下采样（Downsample）处理后的激光点云数据。在 PCL 中，点云数据通常存储在 pcl::PointCloud 类型的对象中，这些对象中包含了点的坐标和其他属性的信息。通过使用智能指针，可以方便地管理点云数据的生命周期，避免内存泄漏等问题。
     pcl::PointCloud<PointType>::Ptr laserCloudCornerLast; // corner feature set from odoOptimization
     pcl::PointCloud<PointType>::Ptr laserCloudSurfLast; // surf feature set from odoOptimization
     pcl::PointCloud<PointType>::Ptr laserCloudCornerLastDS; // downsampled corner featuer set from odoOptimization
@@ -136,17 +136,17 @@ private:
     pcl::KdTreeFLANN<PointType>::Ptr kdtreeSurroundingKeyPoses;
     pcl::KdTreeFLANN<PointType>::Ptr kdtreeHistoryKeyPoses;
 
-    pcl::PointCloud<PointType>::Ptr RSlatestSurfKeyFrameCloud; // giseop, RS: radius search 
-    pcl::PointCloud<PointType>::Ptr RSnearHistorySurfKeyFrameCloud;
-    pcl::PointCloud<PointType>::Ptr RSnearHistorySurfKeyFrameCloudDS;
+    pcl::PointCloud<PointType>::Ptr RSlatestSurfKeyFrameCloud; // giseop, RS: radius search //添加
+    pcl::PointCloud<PointType>::Ptr RSnearHistorySurfKeyFrameCloud;//添加。"RSlatestSurfKeyFrameCloud" 表示最新的表面关键帧云数据，"RSnearHistorySurfKeyFrameCloud" 表示最近的历史表面关键帧云数据，"RSnearHistorySurfKeyFrameCloudDS" 表示经过下采样处理的最近的历史表面关键帧云数据。
+    pcl::PointCloud<PointType>::Ptr RSnearHistorySurfKeyFrameCloudDS;//添加
 
     pcl::PointCloud<PointType>::Ptr nearHistoryCornerKeyFrameCloud;
     pcl::PointCloud<PointType>::Ptr nearHistoryCornerKeyFrameCloudDS;
-    pcl::PointCloud<PointType>::Ptr SCnearHistorySurfKeyFrameCloud;
-    pcl::PointCloud<PointType>::Ptr SCnearHistorySurfKeyFrameCloudDS;
+    pcl::PointCloud<PointType>::Ptr SCnearHistorySurfKeyFrameCloud;// 修改   pcl::PointCloud<PointType>::Ptr nearHistorySurfKeyFrameCloud;//这种修改可能是为了更清晰地表示变量的含义和用途。在这种情况下，"SC" 可能表示与扫描上下文（Scan Context）相关的内容，因此将变量命名为 "SCnearHistorySurfKeyFrameCloud" 可以更明确地表明它与扫描上下文相关。
+    pcl::PointCloud<PointType>::Ptr SCnearHistorySurfKeyFrameCloudDS;//  修改  pcl::PointCloud<PointType>::Ptr nearHistorySurfKeyFrameCloudDS;
 
     pcl::PointCloud<PointType>::Ptr latestCornerKeyFrameCloud;
-    pcl::PointCloud<PointType>::Ptr SClatestSurfKeyFrameCloud; // giseop, SC: scan context
+    pcl::PointCloud<PointType>::Ptr SClatestSurfKeyFrameCloud; // giseop, SC: scan context//修改。    pcl::PointCloud<PointType>::Ptr latestSurfKeyFrameCloud;
     pcl::PointCloud<PointType>::Ptr latestSurfKeyFrameCloudDS;
 
     pcl::KdTreeFLANN<PointType>::Ptr kdtreeGlobalMap;
@@ -158,7 +158,7 @@ private:
     std::vector<int> pointSearchInd;
     std::vector<float> pointSearchSqDis;
 
-    pcl::VoxelGrid<PointType> downSizeFilterScancontext;
+    pcl::VoxelGrid<PointType> downSizeFilterScancontext;//添加。添加这行代码是为了创建一个点云降采样滤波器对象 downSizeFilterScancontext，用于对点云进行降采样处理。降采样可以减少点云数据量，从而提高后续处理的效率，尤其是在处理大型点云时。通过使用体素网格（VoxelGrid）滤波器，可以将点云分割成以体素为单位的小块，并且在每个体素中只保留一个点或计算体素中点的平均值，从而实现降采样。这样，可以保留点云的主要结构特征，同时减少数据量，使点云处理更加高效。
     pcl::VoxelGrid<PointType> downSizeFilterCorner;
     pcl::VoxelGrid<PointType> downSizeFilterSurf;
     pcl::VoxelGrid<PointType> downSizeFilterOutlier;
@@ -179,7 +179,7 @@ private:
     bool newLaserCloudOutlierLast;
 
 
-    float transformLast[6];
+    float transformLast[6];//在C++中，float transformLast[6]定义了一个浮点数数组transformLast，该数组包含6个元素。这个数组的每个元素都是float类型，可以用来存储浮点数。数组的索引从0开始，到5结束。没有初始化。
     float transformSum[6];
     float transformIncre[6];
     float transformTobeMapped[6];
@@ -190,7 +190,7 @@ private:
     int imuPointerFront;
     int imuPointerLast;
 
-    double imuTime[imuQueLength];
+    double imuTime[imuQueLength];//在C++中，double imuTime[imuQueLength]定义了一个名为imuTime的双精度浮点数数组，该数组的长度由imuQueLength决定。这个数组的每个元素都是double类型，可以用来存储双精度浮点数。数组的索引从0开始，到imuQueLength-1结束
     float imuRoll[imuQueLength];
     float imuPitch[imuQueLength];
 
@@ -220,10 +220,10 @@ private:
 
     bool potentialLoopFlag;
     double timeSaveFirstCurrentScanForLoopClosure;
-    int RSclosestHistoryFrameID;
-    int SCclosestHistoryFrameID; // giseop 
+    int RSclosestHistoryFrameID;//修改。    int closestHistoryFrameID;//可能是为了更清晰地表明这个变量与某个特定功能或模块相关联。通常，添加前缀或缩写可以提供更多的上下文信息，有助于代码的可读性和维护性。
+    int SCclosestHistoryFrameID; // giseop //修改。int latestFrameIDLoopCloure//SCclosestHistoryFrameID 可能表示当前帧最近的一个与之相似的历史帧的ID，用于扫描匹配或其他定位算法中的参考和比较
     int latestFrameIDLoopCloure;
-    float yawDiffRad;
+    float yawDiffRad;//添加//这个变量名表示一个角度差异，通常用来表示两个角度之间的差异，单位为弧度。在代码中，可能用于计算或者表示两个姿态之间的偏差或变化。
 
     bool aLoopIsClosed;
 
@@ -231,23 +231,23 @@ private:
     float ctRoll, stRoll, ctPitch, stPitch, ctYaw, stYaw, tInX, tInY, tInZ;
 
     // // loop detector 
-    SCManager scManager;
+    SCManager scManager;//添加。与扫描上下文相关的成员变量，表明新的代码引入了扫描上下文相关的数据结构和算法。
 
 public:
 
     mapOptimization():
-        nh("~")
-    {
+        nh("~")// 添加了一个参数 "~"，表示私有命名空间
+    {// 创建一个参数对象，并设置参数值
     	ISAM2Params parameters;
 		parameters.relinearizeThreshold = 0.01;
 		parameters.relinearizeSkip = 1;
-    	isam = new ISAM2(parameters);
+isam = new ISAM2(parameters);// 使用新的参数创建了 ISAM2 对象
 
         pubKeyPoses = nh.advertise<sensor_msgs::PointCloud2>("/key_pose_origin", 2);
         pubLaserCloudSurround = nh.advertise<sensor_msgs::PointCloud2>("/laser_cloud_surround", 2);
         pubOdomAftMapped = nh.advertise<nav_msgs::Odometry> ("/aft_mapped_to_init", 5);
 
-        subLaserCloudRaw = nh.subscribe<sensor_msgs::PointCloud2>(pointCloudTopic, 2, &mapOptimization::laserCloudRawHandler, this);
+        subLaserCloudRaw = nh.subscribe<sensor_msgs::PointCloud2>(pointCloudTopic, 2, &mapOptimization::laserCloudRawHandler, this);//添加//这行代码订阅了一个名为 pointCloudTopic 的 ROS 消息话题，消息类型是 sensor_msgs::PointCloud2，并指定了回调函数 mapOptimization::laserCloudRawHandler，在消息到达时会调用这个回调函数来处理接收到的点云数据。
         subLaserCloudCornerLast = nh.subscribe<sensor_msgs::PointCloud2>("/laser_cloud_corner_last", 2, &mapOptimization::laserCloudCornerLastHandler, this);
         subLaserCloudSurfLast = nh.subscribe<sensor_msgs::PointCloud2>("/laser_cloud_surf_last", 2, &mapOptimization::laserCloudSurfLastHandler, this);
         subOutlierCloudLast = nh.subscribe<sensor_msgs::PointCloud2>("/outlier_cloud_last", 2, &mapOptimization::laserCloudOutlierLastHandler, this);
@@ -259,16 +259,16 @@ public:
         pubRecentKeyFrames = nh.advertise<sensor_msgs::PointCloud2>("/recent_cloud", 2);
         pubRegisteredCloud = nh.advertise<sensor_msgs::PointCloud2>("/registered_cloud", 2);
 
-        float filter_size;
+        float filter_size;//添加//这个变量 filter_size 存储了一个浮点数值，表示滤波器的大小或尺寸。可能用来指定某种滤波操作的窗口大小或者核的尺寸，以控制滤波器的作用范围或者影响范围。
         downSizeFilterCorner.setLeafSize(0.2, 0.2, 0.2);
-        filter_size = 0.5; downSizeFilterScancontext.setLeafSize(filter_size, filter_size, filter_size);
-        filter_size = 0.3; downSizeFilterSurf.setLeafSize(filter_size, filter_size, filter_size); // default 0.4;
+        filter_size = 0.5; downSizeFilterScancontext.setLeafSize(filter_size, filter_size, filter_size);//添加//动态赋值并设置了为0.5，然后将其用于设置downSizeFilterScancontext的叶子大小//这个修改可能是为了在代码中引入一个可配置的参数 filter_size，以便在后续的调试和优化过程中能够方便地调整滤波器的尺寸。通过引入这个参数，可以在不修改代码结构的情况下，通过修改 filter_size 的值来动态调整滤波器的尺寸，从而更灵活地适应不同的需求或者场景。
+        filter_size = 0.3; downSizeFilterSurf.setLeafSize(filter_size, filter_size, filter_size); //修改。 downSizeFilterSurf.setLeafSize(0.4, 0.4, 0.4); //同上行为
         downSizeFilterOutlier.setLeafSize(0.4, 0.4, 0.4);
 
-        filter_size = 0.3; downSizeFilterHistoryKeyFrames.setLeafSize(filter_size, filter_size, filter_size); // default 0.4; for histor key frames of loop closure
-        filter_size = 1.0; downSizeFilterSurroundingKeyPoses.setLeafSize(filter_size, filter_size, filter_size); // default 1; for surrounding key poses of scan-to-map optimization
+        filter_size = 0.3; downSizeFilterHistoryKeyFrames.setLeafSize(filter_size, filter_size, filter_size); // default 0.4; //修改。        downSizeFilterHistoryKeyFrames.setLeafSize(0.4, 0.4, 0.4); // for histor key frames of loop closure//for histor key frames of loop closure
+        filter_size = 1.0; downSizeFilterSurroundingKeyPoses.setLeafSize(filter_size, filter_size, filter_size); // default 1; for surrounding key poses of scan-to-map optimization//修改。        downSizeFilterSurroundingKeyPoses.setLeafSize(1.0, 1.0, 1.0); // for surrounding key poses of scan-to-map optimization
 
-        downSizeFilterGlobalMapKeyPoses.setLeafSize(1.0, 1.0, 1.0); // for global map visualization
+        downSizeFilterGlobalMapKeyPoses.setLeafSize(1.0, 1.0, 1.0); // for global map visualization//添加了对它的叶子大小设置
         downSizeFilterGlobalMapKeyFrames.setLeafSize(0.4, 0.4, 0.4); // for global map visualization
 
         odomAftMapped.header.frame_id = "/camera_init";
@@ -291,8 +291,8 @@ public:
         surroundingKeyPoses.reset(new pcl::PointCloud<PointType>());
         surroundingKeyPosesDS.reset(new pcl::PointCloud<PointType>());        
 
-        laserCloudRaw.reset(new pcl::PointCloud<PointType>()); // corner feature set from odoOptimization
-        laserCloudRawDS.reset(new pcl::PointCloud<PointType>()); // corner feature set from odoOptimization
+        laserCloudRaw.reset(new pcl::PointCloud<PointType>()); // corner feature set from odoOptimization//添加。在这里，laserCloudRaw 和 laserCloudRawDS 被重置为新创建的点云对象，这样做的目的可能是清除之前存储的数据，并为它们分配新的内存空间，以便在后续的处理中重新填充数据。通过重置这些指针，可以确保它们指向新的、空的点云对象，以便重新开始数据的处理和存储。
+        laserCloudRawDS.reset(new pcl::PointCloud<PointType>()); // corner feature set from odoOptimization//添加
         laserCloudCornerLast.reset(new pcl::PointCloud<PointType>()); // corner feature set from odoOptimization
         laserCloudSurfLast.reset(new pcl::PointCloud<PointType>()); // surf feature set from odoOptimization
         laserCloudCornerLastDS.reset(new pcl::PointCloud<PointType>()); // downsampled corner featuer set from odoOptimization
@@ -316,16 +316,16 @@ public:
         
         nearHistoryCornerKeyFrameCloud.reset(new pcl::PointCloud<PointType>());
         nearHistoryCornerKeyFrameCloudDS.reset(new pcl::PointCloud<PointType>());
-        SCnearHistorySurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());
-        SCnearHistorySurfKeyFrameCloudDS.reset(new pcl::PointCloud<PointType>());
+        SCnearHistorySurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());//修改。        nearHistorySurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());
+        SCnearHistorySurfKeyFrameCloudDS.reset(new pcl::PointCloud<PointType>());//修改。        nearHistorySurfKeyFrameCloudDS.reset(new pcl::PointCloud<PointType>());
 
         latestCornerKeyFrameCloud.reset(new pcl::PointCloud<PointType>());
-        SClatestSurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());
+        SClatestSurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());//修改        latestSurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());
         latestSurfKeyFrameCloudDS.reset(new pcl::PointCloud<PointType>());
 
-        RSlatestSurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>()); // giseop
-        RSnearHistorySurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());
-        RSnearHistorySurfKeyFrameCloudDS.reset(new pcl::PointCloud<PointType>());
+        RSlatestSurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>()); // giseop//添加RSlatestSurfKeyFrameCloud、RSnearHistorySurfKeyFrameCloud 和 RSnearHistorySurfKeyFrameCloudDS 被重置为新创建的点云对象，这可能是为了清除之前存储的数据，并为它们分配新的内存空间，以便在后续的处理中重新填充数据。通过重置这些指针，可以确保它们指向新的、空的点云对象，以便重新开始数据的处理和存储
+        RSnearHistorySurfKeyFrameCloud.reset(new pcl::PointCloud<PointType>());//添加
+        RSnearHistorySurfKeyFrameCloudDS.reset(new pcl::PointCloud<PointType>());//添加
 
         kdtreeGlobalMap.reset(new pcl::KdTreeFLANN<PointType>());
         globalMapKeyPoses.reset(new pcl::PointCloud<PointType>());
@@ -633,10 +633,10 @@ public:
         newLaserCloudOutlierLast = true;
     }
 
-    void laserCloudRawHandler(const sensor_msgs::PointCloud2ConstPtr& msg){
-        laserCloudRaw->clear();
-        pcl::fromROSMsg(*msg, *laserCloudRaw);
-    }
+    void laserCloudRawHandler(const sensor_msgs::PointCloud2ConstPtr& msg){//添加
+        laserCloudRaw->clear();//添加
+        pcl::fromROSMsg(*msg, *laserCloudRaw);//添加
+    }//这个函数 laserCloudRawHandler 是一个 ROS 订阅器的回调函数，它接收传感器的原始点云数据作为参数。在函数中，首先通过调用 clear() 方法清空了 laserCloudRaw 指向的点云对象，然后使用 fromROSMsg() 函数将 ROS 消息中的数据转换为 PCL 点云数据，并存储在 laserCloudRaw 中。这个函数的目的是将接收到的 ROS 消息中的点云数据转换为 PCL 格式，以便后续的处理和分析
 
     void laserCloudCornerLastHandler(const sensor_msgs::PointCloud2ConstPtr& msg){
         timeLaserCloudCornerLast = msg->header.stamp.toSec();
@@ -847,9 +847,9 @@ public:
          * 1. xyz distance-based radius search (contained in the original LeGO LOAM code)
          * - for fine-stichting trajectories (for not-recognized nodes within scan context search) 
          */
-        RSlatestSurfKeyFrameCloud->clear();
-        RSnearHistorySurfKeyFrameCloud->clear();
-        RSnearHistorySurfKeyFrameCloudDS->clear();
+        RSlatestSurfKeyFrameCloud->clear();//修改        latestSurfKeyFrameCloud->clear();
+        RSnearHistorySurfKeyFrameCloud->clear();//修改        nearHistorySurfKeyFrameCloud->clear();
+        RSnearHistorySurfKeyFrameCloudDS->clear();//修改        nearHistorySurfKeyFrameCloudDS->clear();
 
         // find the closest history key frame
         std::vector<int> pointSearchIndLoop;
@@ -857,18 +857,18 @@ public:
         kdtreeHistoryKeyPoses->setInputCloud(cloudKeyPoses3D);
         kdtreeHistoryKeyPoses->radiusSearch(currentRobotPosPoint, historyKeyframeSearchRadius, pointSearchIndLoop, pointSearchSqDisLoop, 0);
         
-        RSclosestHistoryFrameID = -1;
-        int curMinID = 1000000;
+        RSclosestHistoryFrameID = -1;//修改        closestHistoryFrameID = -1;
+        int curMinID = 1000000;//添加。这行代码定义了一个整数变量 curMinID，并将其初始化为 1000000。这个变量的目的可能是用来记录某种最小值或者起始值
         // policy: take Oldest one (to fix error of the whole trajectory)
         for (int i = 0; i < pointSearchIndLoop.size(); ++i){
             int id = pointSearchIndLoop[i];
             if (abs(cloudKeyPoses6D->points[id].time - timeLaserOdometry) > 30.0){
                 // RSclosestHistoryFrameID = id;
                 // break;
-                if( id < curMinID ) {
-                    curMinID = id;
-                    RSclosestHistoryFrameID = curMinID;
-                }
+                if( id < curMinID ) {//修改                closestHistoryFrameID = id;   break;//修改前的代码也遍历了 pointSearchIndLoop 中的索引，对于每个索引 id，它检查了 cloudKeyPoses6D 中对应索引处的时间值与 timeLaserOdometry 的差值是否大于 30.0。如果差值大于 30.0，它会将 closestHistoryFrameID 更新为当前的 id 值，并立即退出循环。
+                    curMinID = id;//修改
+                    RSclosestHistoryFrameID = curMinID;//修改
+                }//这段代码对变量 curMinID 进行了更新，如果 id 的值小于 curMinID，则将 curMinID 更新为 id 的值，并将 RSclosestHistoryFrameID 更新为 curMinID 的值。这个过程实际上是在寻找某个最小值，并将其记录下来。
             }
         }
 

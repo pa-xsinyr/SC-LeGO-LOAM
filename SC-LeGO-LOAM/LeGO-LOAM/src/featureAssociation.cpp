@@ -1873,7 +1873,7 @@ int main(int argc, char** argv)
 
     ros::Rate rate(200);
     while (ros::ok())
-    // while ( 1 )
+    // while ( 1 )改动处1877
     {
         ros::spinOnce();
 
